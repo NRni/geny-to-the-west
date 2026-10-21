@@ -635,9 +635,23 @@ a {
   font-weight: 650;
 }
 
+.who-ask {
+  margin: 0 0 8px;
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
 .who-card p,
 .who-card li {
   color: var(--color-muted-foreground);
+}
+
+.who-card .who-ask,
+.who-card li strong {
+  color: var(--color-foreground);
 }
 
 .who-card p {
@@ -1070,7 +1084,8 @@ td {
 
   .purpose-grid,
   .howto-grid,
-  .team-grid {
+  .team-grid,
+  .who-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1092,10 +1107,6 @@ td {
 
   .team-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .who-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .arch {
