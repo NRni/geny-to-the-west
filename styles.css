@@ -1099,6 +1099,12 @@ td {
   color: var(--color-muted-foreground);
 }
 
+/* Keep the cover arch on the first screen; it no longer moves when content below it grows */
+.arch {
+  bottom: auto;
+  height: 100svh;
+}
+
 /* Red TODOs: open questions for the team to decide */
 .todo {
   display: block;
@@ -1153,9 +1159,8 @@ td {
 
 .port-card:hover,
 .port-card:focus-within {
-  border-color: rgba(236, 72, 153, 0.7);
+  border-color: rgba(236, 72, 153, 0.6);
   background: #161616;
-  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.35), 0 18px 40px rgba(236, 72, 153, 0.18);
 }
 
 .port-main {
@@ -1284,30 +1289,22 @@ td {
   gap: 6px;
   padding: 16px 20px;
   border-radius: 18px;
-  border: 1.5px solid transparent;
   color: #fafafa;
   text-decoration: none;
-  background-size: 100% 100%, 300% 100%;
-  animation: aud-shift 7s linear infinite;
-  transition: transform 260ms var(--ease);
+  background: #0d0d0f;
+  transition: border-color 220ms var(--ease);
 }
 
 .aud-item:hover {
-  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .aud-readers {
-  background-image: linear-gradient(#0d0d0f, #0d0d0f), linear-gradient(110deg, #ec4899, #a855f7, #22d3ee, #ec4899);
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: 0 0 36px rgba(236, 72, 153, 0.22);
+  border: 1px solid rgba(236, 72, 153, 0.55);
 }
 
 .aud-backers {
-  background-image: linear-gradient(#0d0d0f, #0d0d0f), linear-gradient(110deg, #22d3ee, #a1a1aa, #22d3ee);
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
-  animation-duration: 9s;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .aud-label {
@@ -1327,7 +1324,7 @@ td {
 }
 
 .aud-backers .aud-label {
-  background: #22d3ee;
+  background: #e4e4e7;
   color: #000000;
 }
 
@@ -1381,10 +1378,6 @@ td {
 .aud-arrow:nth-of-type(2)::after { animation-delay: 0.4s; }
 .aud-arrow:nth-of-type(3)::after { animation-delay: 0.8s; }
 
-@keyframes aud-shift {
-  to { background-position: 0 0, 300% 0; }
-}
-
 @keyframes aud-travel {
   to { transform: translateX(46px); }
 }
@@ -1400,7 +1393,6 @@ td {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aud-item,
   .aud-arrow::after {
     animation: none;
   }
