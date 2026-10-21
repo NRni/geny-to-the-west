@@ -67,44 +67,33 @@
   }
 
   var sectionLinks = nav ? Array.prototype.slice.call(nav.querySelectorAll("a[href^='#']")) : [];
-  if ("IntersectionObserver" in window && sectionLinks.length) {
-    var sections = sectionLinks
-      .map(function (link) {
-        return document.querySelector(link.getAttribute("href"));
-      })
-      .filter(Boolean);
+  var spyTargets = sectionLinks
+    .map(function (link) {
+      return { link: link, target: document.querySelector(link.getAttribute("href")) };
+    })
+    .filter(function (item) { return item.target; });
 
-    var spy = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          sectionLinks.forEach(function (link) {
-            var on = link.getAttribute("href") === "#" + entry.target.id;
-            if (on) link.setAttribute("aria-current", "true");
-            else link.removeAttribute("aria-current");
-          });
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0.01 }
-    );
-
-    sections.forEach(function (section) {
-      spy.observe(section);
+  function spy() {
+    var line = window.innerHeight * 0.35;
+    var current = null;
+    spyTargets.forEach(function (item) {
+      if (item.target.getBoundingClientRect().top <= line) current = item;
+    });
+    spyTargets.forEach(function (item) {
+      if (item === current) item.link.setAttribute("aria-current", "true");
+      else item.link.removeAttribute("aria-current");
     });
   }
 
-  if (!reduceMotion && finePointer && hero && arch) {
-    hero.addEventListener("pointermove", function (event) {
-      var box = hero.getBoundingClientRect();
-      var x = (event.clientX - box.left) / box.width - 0.5;
-      var y = (event.clientY - box.top) / box.height - 0.5;
-      arch.style.setProperty("--shift-x", (x * 16).toFixed(2) + "px");
-      arch.style.setProperty("--shift-y", (y * 10).toFixed(2) + "px");
-    });
-    hero.addEventListener("pointerleave", function () {
-      arch.style.setProperty("--shift-x", "0px");
-      arch.style.setProperty("--shift-y", "0px");
-    });
+  if (spyTargets.length) {
+    var spyTicking = false;
+    window.addEventListener("scroll", function () {
+      if (spyTicking) return;
+      spyTicking = true;
+      window.requestAnimationFrame(function () { spyTicking = false; spy(); });
+    }, { passive: true });
+    window.addEventListener("resize", spy);
+    spy();
   }
 
   if (!reduceMotion && "IntersectionObserver" in window) {
