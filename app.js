@@ -185,6 +185,51 @@
     });
   }
 
+  var toTop = document.querySelector(".to-top");
+  var dock = document.querySelector(".to-top-dock");
+  if (toTop) {
+    var docked = false;
+    var ticking = false;
+
+    function place() {
+      ticking = false;
+      var w = window.innerWidth;
+      var vh = window.innerHeight;
+      var gap = w < 768 ? 16 : 24;
+      var atBottom = window.scrollY + vh >= document.documentElement.scrollHeight - 4;
+      var box = dock ? dock.getBoundingClientRect() : null;
+      docked = Boolean(atBottom && box && box.top < vh && box.bottom > 0);
+      toTop.classList.toggle("is-docked", docked);
+      toTop.classList.toggle("is-shown", docked || window.scrollY > vh * 0.6);
+      if (docked) {
+        toTop.style.setProperty("--tx", Math.round(box.left + box.width / 2 - 92) + "px");
+        toTop.style.setProperty("--ty", Math.round(box.top + (box.height - 52) / 2) + "px");
+      } else {
+        toTop.style.setProperty("--tx", Math.round(w - 48 - gap) + "px");
+        toTop.style.setProperty("--ty", Math.round(vh - 48 - gap) + "px");
+      }
+    }
+
+    function request() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(place);
+      }
+    }
+
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+    document.addEventListener("transitionend", function (event) {
+      if (event.target !== toTop) request();
+    });
+    toTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      var first = document.querySelector("#top a, #main");
+      if (first && first.focus) first.focus({ preventScroll: true });
+    });
+    place();
+  }
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {

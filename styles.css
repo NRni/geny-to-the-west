@@ -1682,6 +1682,101 @@ details.sources {
   }
 }
 
+/* Floating back-to-top: sits in the corner, and at the bottom of the page moves into the close section */
+.to-top {
+  --tx: 0px;
+  --ty: 0px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: #18181b;
+  color: #fafafa;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(var(--tx), var(--ty));
+  transition:
+    transform 560ms var(--ease),
+    width 560ms var(--ease),
+    height 560ms var(--ease),
+    gap 560ms var(--ease),
+    background 300ms var(--ease),
+    color 300ms var(--ease),
+    border-color 300ms var(--ease),
+    opacity 260ms var(--ease);
+}
+
+.to-top.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.to-top:hover {
+  border-color: rgba(236, 72, 153, 0.7);
+}
+
+.to-top svg {
+  flex: none;
+}
+
+.to-top-label {
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 560ms var(--ease), opacity 300ms var(--ease);
+}
+
+.to-top.is-docked {
+  width: 184px;
+  height: 52px;
+  gap: 8px;
+  border-color: transparent;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  box-shadow: none;
+}
+
+.to-top.is-docked .to-top-label {
+  max-width: 120px;
+  opacity: 1;
+  transition-delay: 160ms;
+}
+
+.to-top-dock {
+  height: 52px;
+  margin: 24px 0 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top,
+  .to-top-label {
+    transition: none;
+  }
+}
+
+@media print {
+  .to-top,
+  .to-top-dock {
+    display: none !important;
+  }
+}
+
 .js .reveal {
   opacity: 0;
   transform: translateY(18px);
