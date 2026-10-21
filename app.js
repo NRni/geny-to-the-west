@@ -266,6 +266,19 @@
     });
   }
 
+  var kitCard = document.querySelector(".kit-card");
+  if (kitCard && kit) {
+    var kitBoxes = Array.prototype.slice.call(kit.querySelectorAll("input[type='checkbox']"));
+    function paintMeter() {
+      var done = kitBoxes.filter(function (box) { return box.checked; }).length;
+      kitCard.style.setProperty("--done", String(done / kitBoxes.length));
+      kitCard.classList.toggle("is-complete", done === kitBoxes.length);
+    }
+    kitBoxes.forEach(function (box) { box.addEventListener("change", paintMeter); });
+    if (clearBtn) clearBtn.addEventListener("click", paintMeter);
+    paintMeter();
+  }
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {
