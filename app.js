@@ -238,6 +238,7 @@
     var closeTimer = null;
 
     function activate(part) {
+      if (Date.now() < quietUntil) return;
       window.clearTimeout(closeTimer);
       contents.classList.add("is-open");
       contentCards.forEach(function (card) { card.classList.toggle("is-active", card.getAttribute("data-part") === part); });
@@ -256,11 +257,41 @@
     contents.addEventListener("mouseenter", function () { window.clearTimeout(closeTimer); });
     contents.addEventListener("mouseleave", function () { closeTimer = window.setTimeout(close, 160); });
     contents.addEventListener("focusout", function (event) {
-      if (!contents.contains(event.relatedTarget)) close();
+      // Only close when focus actually moves somewhere else, not when a hidden link drops it
+      if (event.relatedTarget && !contents.contains(event.relatedTarget)) close();
     });
+    var panel = contents.querySelector(".port-panel");
+    var quietUntil = 0;
+
+    function closeNow() {
+      panel.classList.add("no-anim");
+      close();
+      void panel.offsetHeight;
+      window.requestAnimationFrame(function () { panel.classList.remove("no-anim"); });
+    }
+
+    // A link in the contents: close the row first (no animation), so the page stops moving,
+    // then scroll. While the page scrolls under the pointer, the row stays shut.
     contents.addEventListener("click", function (event) {
-      if (event.target.closest && event.target.closest(".port-panel a")) close();
+      var link = event.target.closest ? event.target.closest("a[href^='#']") : null;
+      if (!link) return;
+      var target = document.querySelector(link.getAttribute("href"));
+      if (!target) return;
+      event.preventDefault();
+      quietUntil = Date.now() + 1600;
+      if (link.blur) link.blur();
+      closeNow();
+      var section = target.closest ? target.closest(".reveal") : null;
+      if (section && !section.classList.contains("is-in")) {
+        section.style.transition = "none";
+        section.classList.add("is-in");
+        void section.offsetHeight;
+        section.style.transition = "";
+      }
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      if (window.history && window.history.pushState) window.history.pushState(null, "", link.getAttribute("href"));
     });
+    window.addEventListener("scrollend", function () { quietUntil = Math.min(quietUntil, Date.now() + 150); });
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") close();
     });
@@ -277,6 +308,18 @@
     kitBoxes.forEach(function (box) { box.addEventListener("change", paintMeter); });
     if (clearBtn) clearBtn.addEventListener("click", paintMeter);
     paintMeter();
+  }
+
+  var qrHint = document.getElementById("qr-hint");
+  var logoLink = document.querySelector(".logo");
+  if (qrHint) {
+    var hideHint = function () { qrHint.classList.add("is-closed"); };
+    var hintClose = qrHint.querySelector(".qr-hint-close");
+    if (hintClose) hintClose.addEventListener("click", hideHint);
+    if (logoLink) {
+      logoLink.addEventListener("mouseenter", hideHint);
+      logoLink.addEventListener("focus", hideHint);
+    }
   }
 
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
