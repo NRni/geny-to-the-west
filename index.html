@@ -122,7 +122,6 @@
                 <span class="port-name">Mission</span>
                 <span class="port-sum">Empower, don’t prescribe</span>
               </a>
-              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-1" aria-label="Show what is in Mission"><span aria-hidden="true">+</span></button>
               <div class="port-pop" id="port-pop-1">
                 <p class="port-who">Richard Y · Creative &amp; UX Lead</p>
                 <ul class="port-sub">
@@ -140,7 +139,6 @@
                 <span class="port-name">Science</span>
                 <span class="port-sum">Replicators, then CRISPR</span>
               </a>
-              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-2" aria-label="Show what is in Science"><span aria-hidden="true">+</span></button>
               <div class="port-pop" id="port-pop-2">
                 <p class="port-who">Alfred C · Science &amp; Research Lead</p>
                 <p class="port-group">Foundation</p>
@@ -163,7 +161,6 @@
                 <span class="port-name">Ethics</span>
                 <span class="port-sum">From gene to person</span>
               </a>
-              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-3" aria-label="Show what is in Ethics"><span aria-hidden="true">+</span></button>
               <div class="port-pop" id="port-pop-3">
                 <p class="port-who">Robbins L · Ethics &amp; Narrative Lead</p>
                 <ul class="port-sub">
@@ -171,7 +168,8 @@
                   <li style="--k:1"><a href="#trait">Traits are built, not dictated</a></li>
                   <li style="--k:2"><a href="#enhancement">Enhancement leaves three problems open</a></li>
                   <li style="--k:3"><a href="#determinism">One root: determinism</a></li>
-                  <li style="--k:4"><a href="#stance-title">Our editorial stance</a></li>
+                  <li style="--k:4"><a href="#question-checklist">Question checklist</a></li>
+                  <li style="--k:5"><a href="#stance-title">Our editorial stance</a></li>
                 </ul>
               </div>
             </div>
@@ -181,12 +179,10 @@
                 <span class="port-name">Practice</span>
                 <span class="port-sum">Read it like a toolkit</span>
               </a>
-              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-4" aria-label="Show what is in Practice"><span aria-hidden="true">+</span></button>
               <div class="port-pop" id="port-pop-4">
                 <p class="port-who">Ross N · Publisher</p>
                 <ul class="port-sub">
-                  <li style="--k:0"><a href="#question-checklist">Question checklist</a></li>
-                  <li style="--k:1"><a href="#how-to">How to use this guide</a></li>
+                  <li style="--k:0"><a href="#how-to">How to use this guide</a></li>
                 </ul>
               </div>
             </div>
@@ -488,6 +484,56 @@
               </details>
             </div>
           </article>
+
+          <article class="chapter card" id="question-checklist">
+            <div class="chapter-num">05</div>
+            <div class="chapter-body">
+              <p class="chapter-kicker">Practice · Robbins L</p>
+              <h3>Question checklist</h3>
+              <p>
+                When a headline, an ad, or a classmate says “we should edit X,” try these before you pick a side. Check the ones you actually ask. The checks stay in this browser, on this computer, and nowhere else.
+              </p>
+              <form class="kit" id="question-kit">
+                <ol>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="q1" />
+                      <span>Is this somatic or germline — and does the speaker admit the difference?</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="q2" />
+                      <span>What problem is being solved, and who defined it as a problem?</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="q3" />
+                      <span>What do we lose if this trait becomes rarer, or more common?</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="q4" />
+                      <span>Who can use the tool, and who carries the downside if it fails?</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="q5" />
+                      <span>Are genes being treated as destiny, or as one factor among many?</span>
+                    </label>
+                  </li>
+                </ol>
+                <div class="kit-bar">
+                  <p class="kit-status" id="kit-status" aria-live="polite">0 of 5 questions marked</p>
+                  <button class="btn btn-ghost btn-small" type="button" id="kit-clear">Clear checks</button>
+                </div>
+              </form>
+              <p class="carry"><strong>Question to carry:</strong> Which of these five is the one your last argument skipped?</p>
+            </div>
+          </article>
         </div>
 
         <div class="stance" aria-labelledby="stance-title">
@@ -546,63 +592,6 @@
             <li><a href="https://doi.org/10.1016/j.cell.2019.10.033">Karavani et al., “Screening human embryos for polygenic traits has limited utility”, <em>Cell</em> (2019)</a></li>
           </ul>
         </details>
-      </div>
-    </section>
-
-    <section class="section section-chapters reveal" id="question-checklist" aria-label="Question checklist">
-      <div class="container">
-        <div class="todo" role="note"><span class="todo-tag">TODO · team decides</span> Question checklist restored from the earlier version. Decide where it sits, its number (still 06), and whether the five questions still match the new sections.</div>
-        <div class="chapter-list">
-          <article class="chapter card" id="ch-06">
-            <div class="chapter-num">06</div>
-            <div class="chapter-body">
-              <p class="chapter-kicker">Practice</p>
-              <h3>Question checklist</h3>
-              <p>
-                When a headline, an ad, or a classmate says “we should edit X,” try these before you pick a side. Check the ones you actually ask. The checks stay in this browser, on this computer, and nowhere else.
-              </p>
-              <form class="kit" id="question-kit">
-                <ol>
-                  <li>
-                    <label>
-                      <input type="checkbox" name="q1" />
-                      <span>Is this somatic or germline — and does the speaker admit the difference?</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="checkbox" name="q2" />
-                      <span>What problem is being solved, and who defined it as a problem?</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="checkbox" name="q3" />
-                      <span>What do we lose if this trait becomes rarer, or more common?</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="checkbox" name="q4" />
-                      <span>Who can use the tool, and who carries the downside if it fails?</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="checkbox" name="q5" />
-                      <span>Are genes being treated as destiny, or as one factor among many?</span>
-                    </label>
-                  </li>
-                </ol>
-                <div class="kit-bar">
-                  <p class="kit-status" id="kit-status" aria-live="polite">0 of 5 questions marked</p>
-                  <button class="btn btn-ghost btn-small" type="button" id="kit-clear">Clear checks</button>
-                </div>
-              </form>
-              <p class="carry"><strong>Question to carry:</strong> Which of these five is the one your last argument skipped?</p>
-            </div>
-          </article>
-        </div>
       </div>
     </section>
 
