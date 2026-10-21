@@ -525,6 +525,7 @@ a {
 .chapter h3,
 .purpose-card h3,
 .howto-card h3,
+.who-card h3,
 .team-card h3,
 .note h3 {
   font-family: var(--font-display);
@@ -591,6 +592,102 @@ a {
 .note h3 {
   margin: 0 0 12px;
   font-size: 1.2rem;
+}
+
+.section-who {
+  background: #ffffff;
+}
+
+.who-grid {
+  display: grid;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.who-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.who-kicker {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.who-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.45rem;
+}
+
+.who-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 0 14px;
+  color: var(--color-foreground);
+  font-weight: 650;
+}
+
+.who-card p,
+.who-card li {
+  color: var(--color-muted-foreground);
+}
+
+.who-card p {
+  margin: 0 0 14px;
+}
+
+.who-card p:last-child,
+.who-card ul:last-child {
+  margin-bottom: 0;
+}
+
+.who-card ul {
+  margin: 0 0 14px;
+  padding-left: 1.15rem;
+}
+
+.who-card li + li {
+  margin-top: 8px;
+}
+
+.who-card a,
+.note a,
+.hero-meta a,
+.footer-inner a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.who-card a:hover,
+.note a:hover,
+.hero-meta a:hover,
+.footer-inner a:hover {
+  color: var(--color-foreground);
+}
+
+.hero-meta a:hover {
+  color: #ffffff;
+}
+
+.who-close {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  max-width: 62ch;
+  color: var(--color-foreground);
+}
+
+.who-close strong {
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
 .purpose-card ul {
@@ -945,6 +1042,13 @@ td {
   transition: opacity 560ms var(--ease), transform 560ms var(--ease);
 }
 
+@media (min-width: 768px) and (max-width: 1040px) {
+  .site-nav a {
+    padding: 0 8px;
+    font-size: 0.9rem;
+  }
+}
+
 @media (min-width: 768px) {
   .container,
   .header-inner,
@@ -988,6 +1092,10 @@ td {
 
   .team-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .who-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .arch {
