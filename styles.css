@@ -383,11 +383,27 @@ a {
 }
 
 .hero-portfolio {
+  display: grid;
+  gap: 18px;
   text-align: center;
 }
 
+.portfolio-group {
+  display: grid;
+  gap: 8px;
+}
+
 .portfolio-label {
+  margin-bottom: 0;
   color: #d4d4d8;
+}
+
+.portfolio-row-two {
+  grid-template-columns: 1fr 1fr;
+}
+
+.portfolio-row-four {
+  grid-template-columns: 1fr 1fr;
 }
 
 .portfolio-row {
@@ -1020,8 +1036,8 @@ td {
     display: none;
   }
 
-  .portfolio-row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .portfolio-row-four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .purpose-grid,
@@ -1043,10 +1059,6 @@ td {
 }
 
 @media (min-width: 1024px) {
-  .portfolio-row {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
   .team-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
