@@ -117,7 +117,7 @@
           revealWatch.unobserve(entry.target);
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0, rootMargin: "0px 0px -12% 0px" }
     );
     reveals.forEach(function (node) {
       revealWatch.observe(node);
@@ -229,6 +229,18 @@
     });
     place();
   }
+
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest ? event.target.closest("a[href^='#']") : null;
+    if (!link) return;
+    var target = document.querySelector(link.getAttribute("href"));
+    var section = target && target.closest ? target.closest(".reveal") : null;
+    if (!section || section.classList.contains("is-in")) return;
+    section.style.transition = "none";
+    section.classList.add("is-in");
+    void section.offsetHeight;
+    section.style.transition = "";
+  });
 
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
