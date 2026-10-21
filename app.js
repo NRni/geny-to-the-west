@@ -322,6 +322,15 @@
     }
   }
 
+  // Links to the top (the logo): the header is sticky, so "#top" never moves the page. Scroll to the very top instead.
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest ? event.target.closest("a[href='#top']") : null;
+    if (!link) return;
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    if (window.history && window.history.replaceState) window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  });
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {
