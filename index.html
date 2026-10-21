@@ -107,7 +107,6 @@
             <span>Department</span>
           </h1>
           <p class="hero-tagline">A guidebook for asking sharper questions about gene editing — then deciding for yourself.</p>
-          <div class="todo" role="note"><span class="todo-tag">TODO · team decides</span> Em dash in the tagline above. Keep it or rewrite?</div>
           <p class="hero-stance">
             <strong>Stance: To Empower.</strong>
             We will not hand you a verdict.
@@ -116,32 +115,96 @@
 
         <div class="hero-portfolio">
           <p class="portfolio-label">Contents</p>
-          <nav class="portfolio-row portfolio-row-four" aria-label="Contents">
-            <a class="port-card" href="#purpose">
-              <span class="port-num">01</span>
-              <span class="port-name">Mission</span>
-              <span class="port-pop" role="tooltip"><span class="port-pop-who">Richard Y</span><span class="port-pop-role">Creative &amp; UX Lead</span></span>
-            </a>
-            <a class="port-card" href="#foundation">
-              <span class="port-num">02</span>
-              <span class="port-name">Science</span>
-              <span class="port-pop" role="tooltip"><span class="port-pop-who">Alfred C</span><span class="port-pop-role">Science &amp; Research Lead</span></span>
-            </a>
-            <a class="port-card" href="#ethics">
-              <span class="port-num">03</span>
-              <span class="port-name">Ethics</span>
-              <span class="port-pop" role="tooltip"><span class="port-pop-who">Robbins L</span><span class="port-pop-role">Ethics &amp; Narrative Lead</span></span>
-            </a>
-            <a class="port-card" href="#how-to">
-              <span class="port-num">04</span>
-              <span class="port-name">Practice</span>
-              <span class="port-pop" role="tooltip"><span class="port-pop-who">Ross N</span><span class="port-pop-role">Publisher</span></span>
-            </a>
-          </nav>
+          <div class="portfolio-row portfolio-row-four port-grid" role="navigation" aria-label="Contents">
+            <div class="port-card">
+              <a class="port-main" href="#purpose">
+                <span class="port-num">01</span>
+                <span class="port-name">Mission</span>
+                <span class="port-sum">Empower, don’t prescribe</span>
+              </a>
+              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-1" aria-label="Show what is in Mission"><span aria-hidden="true">+</span></button>
+              <div class="port-pop" id="port-pop-1">
+                <p class="port-who">Richard Y · Creative &amp; UX Lead</p>
+                <ul class="port-sub">
+                  <li style="--k:0"><a href="#purpose">What this guide is for</a></li>
+                  <li style="--k:1"><a href="#audience">Target audience</a></li>
+                  <li style="--k:2"><a href="#objective">Objective</a></li>
+                  <li style="--k:3"><a href="#planned-result">Planned result</a></li>
+                  <li style="--k:4"><a href="#stakeholders">Stakeholders / investors</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="port-card">
+              <a class="port-main" href="#foundation">
+                <span class="port-num">02</span>
+                <span class="port-name">Science</span>
+                <span class="port-sum">Replicators, then CRISPR</span>
+              </a>
+              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-2" aria-label="Show what is in Science"><span aria-hidden="true">+</span></button>
+              <div class="port-pop" id="port-pop-2">
+                <p class="port-who">Alfred C · Science &amp; Research Lead</p>
+                <p class="port-group">Foundation</p>
+                <ul class="port-sub">
+                  <li style="--k:0"><a href="#replicators">Replicators</a></li>
+                  <li style="--k:1"><a href="#triad">The triad</a></li>
+                </ul>
+                <p class="port-group">CRISPR</p>
+                <ul class="port-sub">
+                  <li style="--k:0"><a href="#setup">Find and cut</a></li>
+                  <li style="--k:1"><a href="#repair">The repair</a></li>
+                  <li style="--k:2"><a href="#scope">Somatic · germline</a></li>
+                  <li style="--k:3"><a href="#off-target">Off-target</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="port-card">
+              <a class="port-main" href="#ethics">
+                <span class="port-num">03</span>
+                <span class="port-name">Ethics</span>
+                <span class="port-sum">From gene to person</span>
+              </a>
+              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-3" aria-label="Show what is in Ethics"><span aria-hidden="true">+</span></button>
+              <div class="port-pop" id="port-pop-3">
+                <p class="port-who">Robbins L · Ethics &amp; Narrative Lead</p>
+                <ul class="port-sub">
+                  <li style="--k:0"><a href="#gene">A gene is read, not obeyed</a></li>
+                  <li style="--k:1"><a href="#trait">Traits are built, not dictated</a></li>
+                  <li style="--k:2"><a href="#enhancement">Enhancement leaves three problems open</a></li>
+                  <li style="--k:3"><a href="#determinism">One root: determinism</a></li>
+                  <li style="--k:4"><a href="#stance-title">Our editorial stance</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="port-card">
+              <a class="port-main" href="#how-to">
+                <span class="port-num">04</span>
+                <span class="port-name">Practice</span>
+                <span class="port-sum">Read it like a toolkit</span>
+              </a>
+              <button class="port-toggle" type="button" aria-expanded="false" aria-controls="port-pop-4" aria-label="Show what is in Practice"><span aria-hidden="true">+</span></button>
+              <div class="port-pop" id="port-pop-4">
+                <p class="port-who">Ross N · Publisher</p>
+                <ul class="port-sub">
+                  <li style="--k:0"><a href="#question-checklist">Question checklist</a></li>
+                  <li style="--k:1"><a href="#how-to">How to use this guide</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <div class="todo" role="note"><span class="todo-tag">TODO · team decides</span> Ross’s part (site architecture, Tsinghua lab, ELC observations) has no section yet. The Practice card jumps to How to use for now. Where should it go?</div>
-          <p class="hero-meta">
-            <a href="#audience">Target audience: Teenagers, those who will come into contact with and use gene editing technology in the future</a>
-          </p>
+          <div class="audience-band" aria-label="Who this guide is for and who backs it">
+            <a class="aud-item aud-readers" href="#audience">
+              <span class="aud-label">Written for</span>
+              <span class="aud-text">Teenagers, those who will come into contact with and use gene editing technology in the future</span>
+            </a>
+            <a class="aud-item aud-backers" href="#stakeholders">
+              <span class="aud-label">Backed by</span>
+              <span class="aud-text">Scientists and educators</span>
+            </a>
+            <p class="aud-chain" aria-label="Scientists, this guide, educators, then you">
+              <span>Scientists</span><span class="aud-arrow" aria-hidden="true"></span><span>This guide</span><span class="aud-arrow" aria-hidden="true"></span><span>Educators</span><span class="aud-arrow" aria-hidden="true"></span><span class="aud-you">You</span>
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -488,7 +551,7 @@
 
     <section class="section section-chapters reveal" id="question-checklist" aria-label="Question checklist">
       <div class="container">
-        <div class="todo" role="note"><span class="todo-tag">TODO · team decides</span> Question checklist restored from the earlier version. Decide where it sits, its number (still 06), and whether the five questions still match the new sections. Question 1 has an em dash.</div>
+        <div class="todo" role="note"><span class="todo-tag">TODO · team decides</span> Question checklist restored from the earlier version. Decide where it sits, its number (still 06), and whether the five questions still match the new sections.</div>
         <div class="chapter-list">
           <article class="chapter card" id="ch-06">
             <div class="chapter-num">06</div>
@@ -578,7 +641,6 @@
         <p class="section-label">Credits</p>
         <h2 id="team-title">Gene Editorial Department</h2>
         <p class="section-intro">Project 12 — a guidebook on how to correctly worry, or not, about gene editing.</p>
-        <div class="todo" role="note"><span class="todo-tag">TODO · team decides</span> Em dash in the line above. Keep it or rewrite?</div>
         <ul class="team-grid">
           <li class="card team-card">
             <p class="team-mark" aria-hidden="true">AC</p>

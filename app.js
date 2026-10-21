@@ -185,6 +185,30 @@
     });
   }
 
+  var portCards = Array.prototype.slice.call(document.querySelectorAll(".port-card"));
+  portCards.forEach(function (card) {
+    var btn = card.querySelector(".port-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var open = !card.classList.contains("is-open");
+      portCards.forEach(function (other) {
+        other.classList.remove("is-open");
+        var b = other.querySelector(".port-toggle");
+        if (b) b.setAttribute("aria-expanded", "false");
+      });
+      card.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
+    portCards.forEach(function (card) {
+      card.classList.remove("is-open");
+      var b = card.querySelector(".port-toggle");
+      if (b) b.setAttribute("aria-expanded", "false");
+    });
+  });
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {
