@@ -1762,13 +1762,66 @@ details.sources {
   box-shadow: inset 0 0 0 1px rgba(236, 72, 153, 0.45);
 }
 
-/* User guide: its own block at the end of the book */
-#how-to {
-  border-top: 1px solid var(--color-border);
-}
-
+/* Part 04: the user guide first; the experiences behind it read as an extra */
 #how-to .section-label {
   color: var(--color-accent);
+}
+
+#evidence {
+  border-top: 1px dashed var(--color-border);
+}
+
+#evidence .section-label {
+  color: var(--color-muted-foreground);
+}
+
+@media (min-width: 1024px) {
+  #how-to .howto-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The ask at the end of the page */
+.back-this {
+  margin: 28px auto 0;
+  padding: 20px 22px;
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  border-radius: 16px;
+  text-align: left;
+}
+
+.back-this-kicker {
+  margin: 0 0 12px !important;
+  color: var(--color-accent) !important;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.back-this-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.back-this-list dt {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #fafafa;
+}
+
+.back-this-list dd {
+  margin: 2px 0 0;
+  color: #d4d4d8;
+}
+
+@media (min-width: 768px) {
+  .back-this-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
 }
 
 /* Part openers: a clear start for each presenter's part */
