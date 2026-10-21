@@ -398,6 +398,15 @@ a {
   color: #d4d4d8;
 }
 
+.portfolio-emphasis {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--color-accent);
+}
+
 .portfolio-row-two {
   grid-template-columns: 1fr 1fr;
 }
@@ -537,6 +546,8 @@ a {
 
 .section h2,
 .chapter h3,
+.chapter h4,
+.subchapter h3,
 .purpose-card h3,
 .howto-card h3,
 .who-card h3,
@@ -662,6 +673,89 @@ a {
   margin-top: 8px;
 }
 
+.brief-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.brief-block {
+  padding: 24px;
+}
+
+.brief-lead {
+  margin: 0;
+  max-width: 42ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--color-foreground);
+}
+
+.brief-block h3 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+}
+
+.brief-block h3 + p {
+  margin-top: 0;
+}
+
+.brief-block p {
+  margin: 0 0 18px;
+  color: var(--color-muted-foreground);
+}
+
+.brief-block .brief-lead {
+  color: var(--color-foreground);
+}
+
+.brief-block p:last-child,
+.brief-block ol:last-child {
+  margin-bottom: 0;
+}
+
+.brief-block ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--color-muted-foreground);
+}
+
+.brief-block li + li {
+  margin-top: 10px;
+}
+
+.subchapter-emphasis {
+  padding: 28px 22px 22px;
+  border-radius: var(--radius);
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-top: 4px solid var(--color-accent);
+  box-shadow: var(--shadow);
+}
+
+.subchapter-kicker {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.subchapter-emphasis h3 {
+  margin: 0 0 12px;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+
+.subchapter-emphasis .chapter {
+  background: var(--color-background);
+}
+
 .who-card a,
 .note a,
 .hero-meta a,
@@ -747,9 +841,11 @@ a {
   color: var(--color-secondary);
 }
 
-.chapter h3 {
+.chapter h3,
+.chapter h4 {
   margin: 0 0 12px;
   font-size: clamp(1.35rem, 2vw, 1.7rem);
+  font-weight: 600;
 }
 
 .chapter p,
