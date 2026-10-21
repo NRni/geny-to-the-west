@@ -242,6 +242,41 @@
     section.style.transition = "";
   });
 
+  var contents = document.querySelector(".contents");
+  if (contents && window.matchMedia("(hover: hover)").matches) {
+    var contentCards = Array.prototype.slice.call(contents.querySelectorAll(".port-card"));
+    var panes = Array.prototype.slice.call(contents.querySelectorAll(".port-pane"));
+    var closeTimer = null;
+
+    function activate(part) {
+      window.clearTimeout(closeTimer);
+      contents.classList.add("is-open");
+      contentCards.forEach(function (card) { card.classList.toggle("is-active", card.getAttribute("data-part") === part); });
+      panes.forEach(function (pane) { pane.classList.toggle("is-active", pane.getAttribute("data-part") === part); });
+    }
+
+    function close() {
+      contents.classList.remove("is-open");
+      contentCards.forEach(function (card) { card.classList.remove("is-active"); });
+    }
+
+    contentCards.forEach(function (card) {
+      card.addEventListener("mouseenter", function () { activate(card.getAttribute("data-part")); });
+      card.addEventListener("focus", function () { activate(card.getAttribute("data-part")); });
+    });
+    contents.addEventListener("mouseenter", function () { window.clearTimeout(closeTimer); });
+    contents.addEventListener("mouseleave", function () { closeTimer = window.setTimeout(close, 160); });
+    contents.addEventListener("focusout", function (event) {
+      if (!contents.contains(event.relatedTarget)) close();
+    });
+    contents.addEventListener("click", function (event) {
+      if (event.target.closest && event.target.closest(".port-panel a")) close();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") close();
+    });
+  }
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {

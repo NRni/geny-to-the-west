@@ -1141,39 +1141,42 @@ td {
   margin-inline: auto;
 }
 
-/* Contents: one card per part; on hover the card grows in place into small cards */
-.port-grid {
+/* Contents: one card per part; hovering opens one shared row under the cards.
+   The row keeps one height for every part, swaps content in place, and closes only when the pointer leaves. */
+.contents {
   position: relative;
   z-index: 4;
-  align-items: start;
 }
 
-.port-card {
+.contents .port-card {
   position: relative;
-  display: block;
-  min-height: 0;
-  padding: 0;
-  cursor: default;
-  transition: border-color 260ms var(--ease), box-shadow 260ms var(--ease), background 260ms var(--ease);
-}
-
-.port-card:hover,
-.port-card:focus-within {
-  border-color: rgba(236, 72, 153, 0.6);
-  background: #161616;
-}
-
-.port-main {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  position: relative;
-  z-index: 7;
   min-height: 108px;
-  padding: 14px;
-  border-radius: inherit;
-  color: inherit;
-  text-decoration: none;
+  justify-content: flex-start;
+  gap: 6px;
+  transition: border-color 220ms var(--ease), background 220ms var(--ease);
+}
+
+.contents .port-card:hover {
+  transform: none;
+}
+
+.contents .port-card.is-active {
+  border-color: rgba(236, 72, 153, 0.7);
+  background: #1a1a1a;
+}
+
+.contents .port-card.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  width: 12px;
+  height: 12px;
+  background: #141414;
+  border-right: 1px solid rgba(236, 72, 153, 0.5);
+  border-bottom: 1px solid rgba(236, 72, 153, 0.5);
+  transform: translateX(-50%) rotate(45deg);
+  z-index: 6;
 }
 
 .port-sum {
@@ -1182,116 +1185,155 @@ td {
   line-height: 1.35;
 }
 
-.port-pop {
+.port-panel {
   position: absolute;
-  top: calc(100% - 12px);
-  left: -1px;
-  right: -1px;
-  z-index: 6;
-  display: grid;
-  grid-template-rows: 0fr;
-  padding-top: 12px;
-  border: 1px solid transparent;
-  border-top: 0;
-  border-radius: 0 0 14px 14px;
-  background: transparent;
-  text-align: left;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
   pointer-events: none;
-  transition: grid-template-rows 460ms var(--ease), background 200ms var(--ease), border-color 200ms var(--ease);
 }
 
-.port-card:hover,
-.port-card:focus-within {
-  border-bottom-color: transparent;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.port-pop-inner {
-  min-height: 0;
-  overflow: hidden;
-  padding: 0 12px;
-}
-
-.port-card:hover .port-pop,
-.port-card:focus-within .port-pop {
-  grid-template-rows: 1fr;
-  border-color: rgba(236, 72, 153, 0.6);
-  background: #161616;
+.port-panel-box {
+  position: relative;
+  height: 184px;
+  border-radius: 16px;
+  border: 1px solid rgba(236, 72, 153, 0.5);
+  background: #141414;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  opacity: 0;
+  clip-path: inset(0 0 100% 0 round 16px);
+  transform: translateY(-6px);
+  transition: clip-path 420ms var(--ease), opacity 240ms var(--ease), transform 420ms var(--ease);
+}
+
+.contents.is-open .port-panel {
   pointer-events: auto;
 }
 
-.port-who {
-  margin: 0 0 8px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  color: #fafafa;
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 600;
+.contents.is-open .port-panel-box {
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round 16px);
+  transform: none;
 }
 
-.port-group {
-  margin: 8px 0 6px;
+.port-pane {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 20px;
+  padding: 18px 20px;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(12px);
+  transition: opacity 200ms var(--ease), transform 300ms var(--ease), visibility 0s linear 300ms;
+}
+
+.port-pane.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 260ms var(--ease) 60ms, transform 320ms var(--ease), visibility 0s;
+}
+
+.pane-head {
+  padding-right: 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pane-num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+
+.pane-title {
+  margin: 4px 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #fafafa;
+}
+
+.pane-who {
+  margin: 0;
+  color: #a1a1aa;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.pane-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 66px;
+  gap: 8px;
+  align-content: start;
+}
+
+.pane-grid li {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 200ms var(--ease), transform 260ms var(--ease);
+}
+
+.port-pane.is-active .pane-grid li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(80ms + var(--k) * 40ms);
+}
+
+.pane-grid a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  height: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e4e4e7;
+  text-decoration: none;
+  transition: border-color 180ms var(--ease), background 180ms var(--ease);
+}
+
+.pane-grid a:hover,
+.pane-grid a:focus-visible {
+  border-color: rgba(236, 72, 153, 0.7);
+  background: rgba(236, 72, 153, 0.12);
+  color: #ffffff;
+}
+
+.pane-tag {
   color: var(--color-accent);
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.port-sub {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 6px;
-}
-
-.port-pop-inner > .port-sub:last-child {
-  padding-bottom: 12px;
-}
-
-.port-sub li {
-  opacity: 0;
-  transform: translateY(6px) scale(0.97);
-  transition: opacity 240ms var(--ease), transform 320ms var(--ease);
-}
-
-.port-card:hover .port-sub li,
-.port-card:focus-within .port-sub li {
-  opacity: 1;
-  transform: none;
-  transition-delay: calc(160ms + var(--k) * 50ms);
-}
-
-.port-sub a {
-  display: flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 7px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
-  color: #e4e4e7;
-  font-size: 0.86rem;
+.pane-text {
+  font-size: 0.9rem;
   line-height: 1.3;
-  text-decoration: none;
-  transition: background 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
 }
 
-.port-sub a:hover,
-.port-sub a:focus-visible {
-  border-color: rgba(236, 72, 153, 0.7);
-  background: rgba(236, 72, 153, 0.14);
-  color: #ffffff;
-  transform: translateX(3px);
-}
+@media (hover: none), (max-width: 900px) {
+  .port-panel {
+    display: none;
+  }
 
-@media (hover: none) {
-  .port-pop {
+  .contents .port-card.is-active::after {
     display: none;
   }
 }
@@ -1421,10 +1463,9 @@ td {
     animation: none;
   }
 
-  .port-pop,
-  .port-sub li,
-  .port-sub a,
-  .port-card {
+  .port-panel-box,
+  .port-pane,
+  .pane-grid li {
     transition: none;
   }
 }
@@ -1708,10 +1749,11 @@ details.sources {
 
 /* Part openers: a clear start for each presenter's part */
 .part-opener {
-  padding: 56px 0 48px;
-  background: #09090b;
-  color: #fafafa;
-  border-top: 4px solid var(--color-accent);
+  padding: 48px 0 40px;
+  background: #ffffff;
+  color: var(--color-foreground);
+  border-top: 3px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .part-inner {
@@ -1753,15 +1795,15 @@ details.sources {
 
 .part-sum {
   margin: 8px 0 0;
-  color: #a1a1aa;
+  color: var(--color-muted-foreground);
 }
 
 .part-who {
   grid-column: 1 / -1;
   margin: 16px 0 0;
   padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  color: #d4d4d8;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-secondary);
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 600;
