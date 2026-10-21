@@ -623,33 +623,9 @@ a {
   font-size: 1.45rem;
 }
 
-.who-name {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-  margin: 0 0 14px;
-  color: var(--color-foreground);
-  font-weight: 650;
-}
-
-.who-ask {
-  margin: 0 0 8px;
-  color: var(--color-foreground);
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
 .who-card p,
 .who-card li {
   color: var(--color-muted-foreground);
-}
-
-.who-card .who-ask,
-.who-card li strong {
-  color: var(--color-foreground);
 }
 
 .who-card p {
@@ -687,19 +663,6 @@ a {
 
 .hero-meta a:hover {
   color: #ffffff;
-}
-
-.who-close {
-  margin: 24px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border);
-  max-width: 62ch;
-  color: var(--color-foreground);
-}
-
-.who-close strong {
-  font-family: var(--font-display);
-  font-weight: 600;
 }
 
 .purpose-card ul {
