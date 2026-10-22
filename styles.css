@@ -2316,8 +2316,9 @@ details.sources {
   }
 }
 
-/* The pitch ask: Invest and Donate are a demo, clearly marked as fictitious */
+/* The pitch ask: one Donate button opening a demo checkout, clearly marked as fictitious */
 .invest {
+  position: relative;
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -2338,22 +2339,8 @@ details.sources {
   color: #fafafa;
 }
 
-.invest-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.invest-btn {
-  min-width: 104px;
-}
-
-.section-cta .invest-note {
-  margin: 14px 0 0;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(236, 72, 153, 0.14);
-  color: #fafafa;
-  font-size: 0.95rem;
+.donate-btn {
+  min-width: 120px;
 }
 
 .section-cta .invest-tag {
@@ -2364,6 +2351,135 @@ details.sources {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.donate-pop {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - 4px);
+  z-index: 20;
+  width: min(360px, 100%);
+  padding: 22px 22px 20px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #09090b;
+  text-align: left;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(236, 72, 153, 0.35);
+  transform-origin: bottom right;
+  animation: donate-in 280ms var(--ease);
+}
+
+.donate-pop[hidden] {
+  display: none;
+}
+
+@keyframes donate-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.donate-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f4f4f5;
+  color: #09090b;
+  cursor: pointer;
+}
+
+.donate-close:hover {
+  background: #e4e4e7;
+}
+
+.section-cta .donate-pop p {
+  margin: 0;
+  color: #52525b;
+}
+
+.section-cta .donate-pop .donate-kicker {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-cta .donate-pop .donate-title {
+  margin: 4px 36px 0 0;
+  color: #09090b;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.section-cta .donate-pop .donate-amount {
+  margin: 14px 0 12px;
+  color: #09090b;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.donate-currency {
+  margin-right: 2px;
+  color: var(--color-accent);
+}
+
+.donate-chips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.donate-chip {
+  flex: 1;
+  min-height: 40px;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #09090b;
+  font-family: var(--font-display);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 160ms var(--ease), background 160ms var(--ease);
+}
+
+.donate-chip:hover {
+  border-color: var(--color-accent);
+}
+
+.donate-chip.is-picked {
+  border-color: var(--color-accent);
+  background: #fdf2f8;
+}
+
+.section-cta .donate-pop .donate-buys {
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+}
+
+.donate-go {
+  width: 100%;
+}
+
+.donate-go-amount {
+  margin-left: 0.35em;
+}
+
+.section-cta .donate-done p {
+  margin-top: 8px;
 }
 
 @media (min-width: 768px) {

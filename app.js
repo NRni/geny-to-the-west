@@ -375,14 +375,53 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeArch);
   }
 
-  // Invest and Donate are a pitch demo: they only show a note that this is fictitious
-  var investNote = document.getElementById("invest-note");
-  if (investNote) {
-    Array.prototype.slice.call(document.querySelectorAll(".invest-btn")).forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        investNote.hidden = false;
-        document.querySelectorAll(".invest-btn").forEach(function (b) { b.setAttribute("aria-expanded", "true"); });
+  // Donate is a pitch demo: a pretend checkout with silly amounts; nothing is collected or sent
+  var donateBtn = document.querySelector(".donate-btn");
+  var donatePop = document.getElementById("donate-pop");
+  if (donateBtn && donatePop) {
+    var donateForm = donatePop.querySelector(".donate-form");
+    var donateDone = donatePop.querySelector(".donate-done");
+    var donateValue = document.getElementById("donate-value");
+    var donateGoAmount = donatePop.querySelector(".donate-go-amount");
+    var chips = Array.prototype.slice.call(donatePop.querySelectorAll(".donate-chip"));
+
+    var openDonate = function () {
+      donateForm.hidden = false;
+      donateDone.hidden = true;
+      donatePop.hidden = false;
+      donateBtn.setAttribute("aria-expanded", "true");
+      var picked = donatePop.querySelector(".donate-chip.is-picked");
+      if (picked) picked.focus({ preventScroll: true });
+      var top = donatePop.getBoundingClientRect().top;
+      if (top < 80) window.scrollBy({ top: top - 96, behavior: "smooth" });
+    };
+    var closeDonate = function () {
+      if (donatePop.hidden) return;
+      donatePop.hidden = true;
+      donateBtn.setAttribute("aria-expanded", "false");
+      donateBtn.focus();
+    };
+
+    donateBtn.addEventListener("click", function () {
+      if (donatePop.hidden) openDonate(); else closeDonate();
+    });
+    donatePop.querySelector(".donate-close").addEventListener("click", closeDonate);
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (c) { c.classList.toggle("is-picked", c === chip); c.setAttribute("aria-pressed", c === chip ? "true" : "false"); });
+        donateValue.textContent = chip.getAttribute("data-amount");
+        donateGoAmount.textContent = "$" + chip.getAttribute("data-amount");
       });
+    });
+    donatePop.querySelector(".donate-go").addEventListener("click", function () {
+      donateForm.hidden = true;
+      donateDone.hidden = false;
+    });
+    document.addEventListener("keydown", function (event) { if (event.key === "Escape") closeDonate(); });
+    document.addEventListener("click", function (event) {
+      if (donatePop.hidden) return;
+      if (donatePop.contains(event.target) || donateBtn.contains(event.target)) return;
+      closeDonate();
     });
   }
 
