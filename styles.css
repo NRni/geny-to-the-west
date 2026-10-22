@@ -1112,6 +1112,20 @@ td {
   height: 100svh;
 }
 
+/* Cover title, as on the Figma cover: Gene and Edit in bold, the rest light, so it reads GENE EDIT */
+.hero h1 {
+  font-size: clamp(2.8rem, 7.4vw, 5.6rem);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.hero h1 b {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
 /* Red TODOs: open questions for the team to decide */
 .todo {
   display: block;
