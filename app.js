@@ -375,6 +375,17 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeArch);
   }
 
+  // Invest and Donate are a pitch demo: they only show a note that this is fictitious
+  var investNote = document.getElementById("invest-note");
+  if (investNote) {
+    Array.prototype.slice.call(document.querySelectorAll(".invest-btn")).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        investNote.hidden = false;
+        document.querySelectorAll(".invest-btn").forEach(function (b) { b.setAttribute("aria-expanded", "true"); });
+      });
+    });
+  }
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {

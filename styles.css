@@ -2316,6 +2316,63 @@ details.sources {
   }
 }
 
+/* The pitch ask: Invest and Donate are a demo, clearly marked as fictitious */
+.invest {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.invest-row {
+  display: grid;
+  gap: 12px;
+  align-items: center;
+}
+
+.section-cta .invest-pitch {
+  margin: 0;
+  color: #d4d4d8;
+}
+
+.invest-pitch strong {
+  color: #fafafa;
+}
+
+.invest-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.invest-btn {
+  min-width: 104px;
+}
+
+.section-cta .invest-note {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(236, 72, 153, 0.14);
+  color: #fafafa;
+  font-size: 0.95rem;
+}
+
+.section-cta .invest-tag {
+  margin: 10px 0 0;
+  color: #a1a1aa;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .invest-row {
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+  }
+}
+
 /* Part openers: a clear start for each presenter's part */
 .part-opener {
   padding: 48px 0 40px;
