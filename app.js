@@ -331,6 +331,18 @@
     if (window.history && window.history.replaceState) window.history.replaceState(null, "", window.location.pathname + window.location.search);
   });
 
+  // Keep the arch's peak just behind the bottom of the title, whatever the screen size
+  var heroTitle = document.getElementById("hero-title");
+  if (arch && hero && heroTitle) {
+    var placeArch = function () {
+      var bottom = heroTitle.getBoundingClientRect().bottom - hero.getBoundingClientRect().top;
+      arch.style.setProperty("--apex", Math.round(bottom - 18) + "px");
+    };
+    placeArch();
+    window.addEventListener("resize", placeArch);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeArch);
+  }
+
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {
     var count = Number(getComputedStyle(arch).getPropertyValue("--n")) || 52;
     document.querySelectorAll(".arch-step").forEach(function (step) {
@@ -339,7 +351,7 @@
       var rx = Math.min(window.innerWidth * 0.46, 640);
       var ry = Math.min(window.innerHeight * 0.26, 280);
       step.style.left = "50%";
-      step.style.top = "80%";
+      step.style.top = "calc(var(--apex, 390px) + " + ry + "px)";
       step.style.width = (42 + (1 - Math.sin(a)) * 170) + "px";
       step.style.transform =
         "translate(" + (Math.cos(a) * rx) + "px, " + (Math.sin(a) * ry * -1) + "px) translate(-50%, -50%) rotate(" + (a * 180 / Math.PI - 90) + "deg) rotateX(58deg)";
