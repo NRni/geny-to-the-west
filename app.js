@@ -73,6 +73,26 @@
     })
     .filter(function (item) { return item.target; });
 
+  var navPill = null;
+  if (nav) {
+    navPill = document.createElement("span");
+    navPill.className = "nav-pill no-anim";
+    navPill.setAttribute("aria-hidden", "true");
+    nav.insertBefore(navPill, nav.firstChild);
+  }
+
+  function movePill(link) {
+    if (!navPill) return;
+    if (!link || link.classList.contains("nav-cta")) {
+      navPill.classList.remove("is-on");
+      return;
+    }
+    navPill.style.width = link.offsetWidth + "px";
+    navPill.style.height = link.offsetHeight + "px";
+    navPill.style.transform = "translate(" + link.offsetLeft + "px, " + link.offsetTop + "px)";
+    navPill.classList.add("is-on");
+  }
+
   function spy() {
     var line = window.innerHeight * 0.35;
     var current = null;
@@ -83,6 +103,7 @@
       if (item === current) item.link.setAttribute("aria-current", "true");
       else item.link.removeAttribute("aria-current");
     });
+    movePill(current ? current.link : null);
   }
 
   if (spyTargets.length) {
@@ -92,8 +113,19 @@
       spyTicking = true;
       window.requestAnimationFrame(function () { spyTicking = false; spy(); });
     }, { passive: true });
-    window.addEventListener("resize", spy);
+    window.addEventListener("resize", function () {
+      if (navPill) navPill.classList.add("no-anim");
+      spy();
+      window.requestAnimationFrame(function () { if (navPill) navPill.classList.remove("no-anim"); });
+    });
     spy();
+    // First placement without sliding in from the left edge; fonts can shift widths, so place again once they load
+    window.requestAnimationFrame(function () { if (navPill) navPill.classList.remove("no-anim"); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
+      if (navPill) navPill.classList.add("no-anim");
+      spy();
+      window.requestAnimationFrame(function () { if (navPill) navPill.classList.remove("no-anim"); });
+    });
   }
 
   if (!reduceMotion && "IntersectionObserver" in window) {
