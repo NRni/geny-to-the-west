@@ -432,15 +432,22 @@
   if (egg && pullBar) {
     var pull = 0;
     var pullTimer = 0;
-    var NEED = 1400;
+    var NEED = 5000;
+    var settledAt = 0;
+    // Pushing only counts once the page has sat at its end for a moment,
+    // so the momentum of reaching the end never adds to it.
     var atEnd = function () {
-      return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+      var end = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+      if (!end) settledAt = 0;
+      else if (!settledAt) settledAt = Date.now();
+      return end && Date.now() - settledAt > 900;
     };
+    window.addEventListener("scroll", atEnd, { passive: true });
     var setPull = function (value) {
       pull = Math.max(0, value);
       pullBar.style.setProperty("--pull", Math.min(1, pull / NEED).toFixed(3));
       clearTimeout(pullTimer);
-      if (pull > 0) pullTimer = setTimeout(function () { setPull(0); }, 900);
+      if (pull > 0) pullTimer = setTimeout(function () { setPull(0); }, 600);
     };
     var openEgg = function (instant) {
       if (!egg.hidden) return;
@@ -468,13 +475,13 @@
     window.addEventListener("touchmove", function (event) {
       if (touchY === null) return;
       var y = event.touches[0].clientY;
-      if (touchY - y > 0) push((touchY - y) * 5);
+      if (touchY - y > 0) push((touchY - y) * 3);
       touchY = y;
     }, { passive: true });
     window.addEventListener("touchend", function () { touchY = null; }, { passive: true });
     document.addEventListener("keydown", function (event) {
       if (/^(input|textarea|select|button)$/i.test(event.target.tagName)) return;
-      if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === "End" || event.key === " ") push(300);
+      if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === "End" || event.key === " ") push(250);
     });
     if (location.hash === "#egg") openEgg(true);
   }
