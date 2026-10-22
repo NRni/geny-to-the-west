@@ -217,7 +217,8 @@
       var w = window.innerWidth;
       var vh = window.innerHeight;
       var gap = w < 768 ? 16 : 24;
-      var atBottom = window.scrollY + vh >= document.documentElement.scrollHeight - 4;
+      var foot = document.querySelector(".site-footer");
+      var atBottom = foot ? foot.getBoundingClientRect().bottom <= vh + 4 : window.scrollY + vh >= document.documentElement.scrollHeight - 4;
       var box = dock ? dock.getBoundingClientRect() : null;
       docked = Boolean(atBottom && box && box.top < vh && box.bottom > 0);
       toTop.classList.toggle("is-docked", docked);
@@ -423,6 +424,59 @@
       if (donatePop.contains(event.target) || donateBtn.contains(event.target)) return;
       closeDonate();
     });
+  }
+
+  // Easter egg: keep pushing past the end of the page (wheel, touch or keys) to open it
+  var egg = document.getElementById("egg");
+  var pullBar = document.querySelector(".egg-pull");
+  if (egg && pullBar) {
+    var pull = 0;
+    var pullTimer = 0;
+    var NEED = 1400;
+    var atEnd = function () {
+      return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+    };
+    var setPull = function (value) {
+      pull = Math.max(0, value);
+      pullBar.style.setProperty("--pull", Math.min(1, pull / NEED).toFixed(3));
+      clearTimeout(pullTimer);
+      if (pull > 0) pullTimer = setTimeout(function () { setPull(0); }, 900);
+    };
+    var openEgg = function (instant) {
+      if (!egg.hidden) return;
+      setPull(0);
+      egg.hidden = false;
+      egg.classList.add("is-new");
+      var frame = egg.querySelector("iframe[data-src]");
+      if (frame) frame.src = frame.getAttribute("data-src");
+      window.requestAnimationFrame(function () {
+        egg.scrollIntoView({ behavior: instant || reduceMotion ? "auto" : "smooth" });
+      });
+    };
+    var push = function (amount) {
+      if (!egg.hidden) return;
+      if (!atEnd()) { if (pull) setPull(0); return; }
+      setPull(pull + amount);
+      if (pull >= NEED) openEgg(false);
+    };
+    window.addEventListener("wheel", function (event) {
+      if (event.deltaY > 0) push(event.deltaMode === 1 ? event.deltaY * 32 : event.deltaY);
+      else if (event.deltaY < 0 && pull) setPull(0);
+    }, { passive: true });
+    var touchY = null;
+    window.addEventListener("touchstart", function (event) { touchY = event.touches[0].clientY; }, { passive: true });
+    window.addEventListener("touchmove", function (event) {
+      if (touchY === null) return;
+      var y = event.touches[0].clientY;
+      if (touchY - y > 0) push((touchY - y) * 5);
+      touchY = y;
+    }, { passive: true });
+    window.addEventListener("touchend", function () { touchY = null; }, { passive: true });
+    document.addEventListener("keydown", function (event) {
+      if (/^(input|textarea|select|button)$/i.test(event.target.tagName)) return;
+      if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === "End" || event.key === " ") push(300);
+    });
+    if (location.hash === "#egg") openEgg(true);
   }
 
   if (arch && window.CSS && CSS.supports && !CSS.supports("width", "calc(sin(0deg) * 1px)")) {

@@ -2489,6 +2489,117 @@ details.sources {
   }
 }
 
+/* Easter egg after the footer: opens only after a hard scroll past the end */
+.site-footer {
+  position: relative;
+}
+
+.egg-pull {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.egg-pull-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), #a855f7);
+  transform: scaleX(var(--pull, 0));
+  transform-origin: left;
+  transition: transform 160ms linear;
+}
+
+.egg {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 112px 16px 40px;
+  background: radial-gradient(80% 60% at 50% 0%, rgba(236, 72, 153, 0.22), transparent 70%), #09090b;
+  color: #fafafa;
+  text-align: center;
+}
+
+.egg[hidden] {
+  display: none;
+}
+
+.egg.is-new .egg-inner {
+  animation: egg-in 700ms var(--ease) both;
+}
+
+@keyframes egg-in {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.egg-inner {
+  display: grid;
+  gap: 28px;
+  justify-items: center;
+  width: min(820px, 100%);
+}
+
+.egg-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.egg-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.egg-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #18181b;
+}
+
+.egg-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.egg-link {
+  margin: -12px 0 0;
+  font-size: 0.9rem;
+}
+
+.egg-link a {
+  color: #a1a1aa;
+}
+
+@media (min-width: 1024px) {
+  .egg-inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: min(1180px, 100%);
+  }
+
+  .egg-title,
+  .egg-link {
+    grid-column: 1 / -1;
+  }
+}
+
 /* Part openers: a clear start for each presenter's part */
 .part-opener {
   padding: 48px 0 40px;
